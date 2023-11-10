@@ -8,7 +8,7 @@ session_start();
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Walk About Mini Golf High Scores</title>
+  <title>Walk About Mini Golf Highscores</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,15 +45,6 @@ session_start();
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
-    
-
   </header><!-- End Header -->
 
   <?php include "inc/sidebar.php" ?>
@@ -61,7 +52,7 @@ session_start();
 include 'inc/db.php';
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $err="";
-
+    $score = 999;
     $course = explode("-",$_POST['courseid']);
     $courseid = $course[0];
     $coursename = $course[1];
@@ -81,10 +72,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $stmt->bind_result($score);
     $stmt->fetch(); 
     $stmt->close();
-    if ($score == "NONE") {  
+    echo "<h1>".$score ."-".$newscore ."</h1>";
+    if ($score == "NONE" or $score = 999) {  
         $stmtInsert = $conn->prepare('INSERT INTO highscores (userid, courseid, diff, score) values (?, ?, ?, ?)');
         $stmtInsert->bind_param('iiii', $userid, $courseid, $diff, $newscore);
-        $stmtInsert->execute();
+        if (!$stmtInsert->execute()){
+          die('Error executing the query: ' . $stmt->error);
+        }
         $last_id = mysqli_insert_id($conn);
         $stmtInsert->close();
         $conn->close();
@@ -223,11 +217,8 @@ $result = $conn->query($sql);
     </section>
   </main><!-- End #main -->
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="credits">
-    Designed & Built by Aran77<br>HAIL TO THE ALE<br><img src="assets/img/htta.png" alt="HTTA"> 
-    </div>
-  </footer><!-- End Footer -->
+  <?php include "inc/footer.php" ?>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

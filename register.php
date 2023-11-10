@@ -135,9 +135,6 @@ $username_err= "";
               </div>
               <?php } ?>
               
-              <div class="credits">
-              Designed & Built by Aran77<br>HAIL TO THE ALE<br>
-              <img src="assets/img/htta.png" alt="HTTA"> 
               </div>
             </div>
           </div>

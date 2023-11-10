@@ -1,6 +1,5 @@
 <?php 
 session_start();
-echo $_SESSION['name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,12 +77,7 @@ echo $_SESSION['name'];
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->  
+
   </header><!-- End Header -->
   <?php include "inc/sidebar.php" ?>
   <main id="main" class="main">
@@ -137,13 +131,16 @@ if ($result->num_rows > 0) {
     );
   }
   foreach ($groupedCourses as $coursename => $courseDetails) {
+    $coursenameimg = str_replace(' ', '', $coursename);
+    $coursenameimg = str_replace(',', '', $coursenameimg);
     ?>
             <!-- Sales Card -->
             <div class="col-xxl-2 col-md-3 col-sm-2">
             <div class="card info-card revenue-card"  style="height: 150px">
-                <div class="card-body">
+                <div class="card-body"><img src="img/<?=$coursenameimg?>.png" style="float:right" alt="<?=$coursename?>" width="75" class="courseimg">
                  <!-- <div class="filter"><button class="edit-icon-button" onclick="openModal()"><i class="bi-pencil-square"></i> </button></div>-->
                     <h5 class="card-title" style="height:70px"><?=$coursename. "<br>"; ?></span></h5>
+                    
                     <?php foreach ($courseDetails as $courseDetail) { ?>
                       <span><?=$courseDetail['difficulty']?> <?=$courseDetail["min_score"]?></span><br>
                     <?php } ?>
@@ -254,12 +251,8 @@ if ($result->num_rows > 0) {
 </div>
   -->
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="credits">
-      Designed & Built by Aran77<br>HAIL TO THE ALE<br><img src="assets/img/htta.png" alt="HTTA"> 
-      
-    </div>
-  </footer><!-- End Footer -->
+  <?php include "inc/footer.php" ?>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <script>

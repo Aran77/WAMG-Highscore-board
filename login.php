@@ -123,17 +123,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
               </div>
 
-              <div class="credits">
-              Designed & Built by Aran77<br>HAIL TO THE ALE<br><img src="assets/img/htta.png" alt="HTTA"> 
-              </div>
 
             </div>
+
           </div>
+
         </div>
 
       </section>
 
     </div>
+
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

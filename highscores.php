@@ -42,12 +42,6 @@ session_start();
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
   </header><!-- End Header -->
   <!-- ======= Sidebar ======= -->
   <?php include "inc/sidebar.php" ?>
@@ -88,6 +82,7 @@ $result = $conn->query($sql);
                 <option value="<?=$row['courseid']."-".$row['coursename']?>"><?=$row['coursename']?></option>
               <?php }} ?>
               </select>
+              <img src="img/logo.png" width="100" id="displayImage" style="margin-left:50px">
               </div>
           </div>
 
@@ -103,13 +98,8 @@ $result = $conn->query($sql);
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="credits">
-      <div class="credits">
-      Designed & Built by Aran77<br>HAIL TO THE ALE<br><img src="assets/img/htta.png" alt="HTTA"> 
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+  <?php include "inc/footer.php" ?>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -123,7 +113,16 @@ $result = $conn->query($sql);
       el.addEventListener('change', function() {
           var selectedCourse = this.value;
           console.log("Selected Course: " + selectedCourse);
-          
+           // Remove spaces and commas from the selected option
+          var imageName = selectedCourse.replace(/[\s,]/g, '');
+          var splitArray = imageName.split('-');
+          var imageName = splitArray[1];
+          console.log(imageName);
+
+          // Construct the image source and set it
+          var imagePath = "img/" + imageName + ".png"; // Adjust the path accordingly
+          document.getElementById("displayImage").src = imagePath;
+                
           // Make an AJAX request to the server-side PHP script
           var xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function() {
